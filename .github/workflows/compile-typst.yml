@@ -1,0 +1,26 @@
+name: Compile Typst to PDF
+
+on:
+  push:
+    paths:
+      - '**/*.typ'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Set up Typst
+      uses: typst-community/setup-typst@v3
+
+    - name: Compile Typst file to PDF
+      run: typst compile file.typ file.pdf
+
+    - name: Upload PDF
+      uses: actions/upload-artifact@v3
+      with:
+        name: compiled-pdf
+        path: file.pdf
